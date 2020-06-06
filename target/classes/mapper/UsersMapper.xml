@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.suser.mapper.UsersMapper">
+    <select id="getUserByUsername" resultType="com.suser.entity.Users">
+        SELECT * FROM users WHERE username = #{username}
+    </select>
+    <select id="getList" resultType="com.suser.entity.Users">
+        SELECT * FROM users WHERE 1 = 1
+        <if test="username != null and username != ''">and username = #{username}</if>
+        <if test="worker != null and worker != ''">and worker = #{worker}</if>
+    </select>
+    <insert id="addUser">
+        INSERT INTO `users`(username,password,`name`,avatar,introduction,worker,phone,sex,create_time)
+        VALUES (#{username},#{password},#{name},#{avatar},#{introduction},#{worker},#{phone},#{sex},now())
+    </insert>
+    <update id="updateUser">
+        UPDATE `users`
+        SET username = #{username},
+        `name` = #{name},
+        introduction = #{introduction},
+        sex = #{sex},
+        phone = #{phone}
+        WHERE worker = #{worker}
+    </update>
+    <delete id="deleteUser">
+        DELETE FROM `users`
+        WHERE worker = #{worker }
+    </delete>
+    <delete id="deleteUsers" parameterType="java.lang.String">
+        DELETE FROM `users` WHERE 1>2 OR worker IN
+        <foreach item="item" collection="array" open="(" separator="," close=")">#{item}</foreach>
+    </delete>
+    <update id="imageUrl">
+        UPDATE `users` SET avatar = #{url } WHERE username = #{username }
+    </update>
+    <update id="changePassword">
+        UPDATE `users` SET password = #{password } WHERE username = #{username }
+    </update>
+    <select id="getUsernameByWorker" resultType="java.lang.String">
+        select username FROM users WHERE worker = #{worker}
+    </select>
+</mapper>

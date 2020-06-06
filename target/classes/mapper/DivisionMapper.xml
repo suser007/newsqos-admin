@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.suser.mapper.DivisionMapper">
+    <select id="getList" resultType="com.suser.entity.Division">
+        SELECT * FROM division WHERE 1=1
+        <if test="divisioncode != '' and divisioncode != null">and divisioncode = #{divisioncode}</if>
+        <if test="divisionname != '' and divisionname != null">and divisionname = #{divisionname}</if>
+    </select>
+    <select id="getDivisionName" resultType="java.lang.String">
+        SELECT divisionname
+        FROM division
+        WHERE divisioncode = (SELECT belongDivision
+                                FROM admission
+                                WHERE admissioncode = #{admissioncode})
+    </select>
+    <select id="getDivisionCode" resultType="java.lang.String">
+        SELECT divisioncode
+        FROM division
+        WHERE divisionname = #{divisionname}
+    </select>
+</mapper>

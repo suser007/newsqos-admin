@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.suser.mapper.AdmissionMapper">
+    <select id="getList" resultType="com.suser.entity.Admission">
+        SELECT *
+        FROM admission
+        where 1=1
+        <if test="admissioncode != null and admissioncode != ''">and admissioncode = #{admissioncode}</if>
+        <if test="admissionname != null and admissionname != ''">and admissionname = #{admissionname}</if>
+        <if test="belongdivision != null and belongdivision != ''">and belongdivision = #{belongdivision}</if>
+
+    </select>
+    <select id="getAdmission" resultType="java.lang.String">
+        SELECT admissionname
+        FROM admission
+        WHERE admissioncode = #{code}
+    </select>
+    <select id="getCode" resultType="java.lang.String">
+        SELECT admissioncode
+        FROM admission
+        WHERE admissionname = #{admisstionname}
+    </select>
+    <insert id="addOneAdmission">
+        INSERT INTO admission ('admissioncode','admissionname')
+        VALUES (#{admissioncode},#{admissionname})
+    </insert>
+</mapper>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.suser.mapper.ClassesMapper">
+    <select id="getList" resultType="com.suser.entity.Classes">
+        SELECT * FROM classes WHERE 1 =1
+        <if test="ksh != '' and ksh != null">and ksh = #{ksh}</if>
+        <if test="studentNum != '' and studentNum != null">and studentNum = #{studentNum}</if>
+        <if test="classesNum != '' and classesNum != null">and classesNum = #{classesNum}</if>
+    </select>
+    <insert id="divisionClasses">
+        INSERT INTO classes(ksh,studentNum,classesNum)
+        VALUES (#{ksh},#{studentNum},#{classesNum})
+    </insert>
+    <delete id="delectClasses">
+        DELETE FROM classes
+    </delete>
+</mapper>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.suser.mapper.ResourceInfoMapper">
+    <select id="getList" resultType="com.suser.entity.ResourceInfo">
+        SELECT *
+        FROM resource
+        WHERE 1=1
+            <if test="ksh != '' and ksh != null">and ksh = #{ksh }</if>
+            <if test="name != '' and name != null">and name = #{name }</if>
+            <if test="idcard != '' and idcard != null">and idcard = #{idcard}</if>
+            <if test="sex != '' and sex != null">and sex = #{sex}</if>
+            <if test="zzmm != '' and zzmm != null">and zzmm = #{zzmm}</if>
+            <if test="byzx != '' and byzx != null">and byzx like '%${byzx}%'</if>
+            <if test="bylb != '' and bylb != null">and bylb = #{bylb}</if>
+            <if test="zcmc != '' and zcmc != null">and zcmc = #{zcmc}</if>
+            <if test="jg != '' and jg != null">and jg = #{jg}</if>
+            <if test="homeaddress != '' and homeaddress != null">and homeaddress like '%${homeaddress}%'</if>
+            <if test="code != '' and code != null">and code = #{code}</if>
+            <if test="rewards != '' and rewards != null">and rewards = #{rewards}</if>
+            <if test="results != 0 and results != null">and results = #{results}</if>
+            <if test="admissioncode != '' and admissioncode != null">and admissioncode = #{admissioncode}</if>
+            <if test="schoolisfirst != '' and schoolisfirst != null">and schoolisfirst = #{schoolisfirst}</if>
+            <if test="professionalisfirst != '' and professionalisfirst != null">and professionalisfirst = #{professionalisfirst}</if>
+            <if test="schooling != '' and schooling != null">and schooling = #{schooling}</if>
+            <if test="grade != '' and grade != null">and grade = #{grade}</if>
+            <if test="hasreports != '' and grade != null">and hasreports = #{hasreports}</if>
+        ORDER BY rewards
+
+    </select>
+    <select id="getListByDivision" resultType="com.suser.entity.ResourceInfo">
+        SELECT *
+        FROM resource
+        WHERE 1=1
+        <if test="ksh != '' and ksh != null">and ksh = #{ksh }</if>
+        <if test="name != '' and name != null">and name = #{name }</if>
+        <if test="idcard != '' and idcard != null">and idcard = #{idcard}</if>
+        <if test="sex != '' and sex != null">and sex = #{sex}</if>
+        <if test="zzmm != '' and zzmm != null">and zzmm = #{zzmm}</if>
+        <if test="byzx != '' and byzx != null">and byzx like '%${byzx}%'</if>
+        <if test="bylb != '' and bylb != null">and bylb = #{bylb}</if>
+        <if test="zcmc != '' and zcmc != null">and zcmc = #{zcmc}</if>
+        <if test="jg != '' and jg != null">and jg = #{jg}</if>
+        <if test="homeaddress != '' and homeaddress != null">and homeaddress like '%${homeaddress}%'</if>
+        <if test="code != '' and code != null">and code = #{code}</if>
+        <if test="rewards != '' and rewards != null">and rewards = #{rewards}</if>
+        <if test="results != 0 and results != null">and results = #{results}</if>
+        <if test="admissioncode != '' and admissioncode != null">and admissioncode = #{admissioncode}</if>
+        <if test="schoolisfirst != '' and schoolisfirst != null">and schoolisfirst = #{schoolisfirst}</if>
+        <if test="professionalisfirst != '' and professionalisfirst != null">and professionalisfirst = #{professionalisfirst}</if>
+        <if test="schooling != '' and schooling != null">and schooling = #{schooling}</if>
+        <if test="grade != '' and grade != null">and grade = #{grade}</if>
+        <if test="divisioncode != '' and divisioncode != null">
+            and admissioncode IN (SELECT admissioncode
+                                    FROM admission
+                                    WHERE belongdivision = #{divisioncode})
+        </if>
+    </select>
+    <update id="updateAdmission">
+        UPDATE resource SET admissioncode = #{admission} WHERE ksh = #{ksh}
+    </update>
+    <select id="getAllKsh">
+    </select>
+    <insert id="addOneResource">
+    </insert>
+</mapper>

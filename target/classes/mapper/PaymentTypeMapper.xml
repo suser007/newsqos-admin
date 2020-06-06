@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.suser.mapper.PaymentTypeMapper">
+    <select id="getList">
+        SELECT *
+        FROM paymenttype
+            <if test="ksh != null and ksh != ''">ksh = #{ksh}</if>
+            <if test="type != null and  != 'type'">type = #{type}</if>
+            <if test="issignup != null and  != 'issignup'">issignup = #{issignup}</if>
+    </select>
+    <update id="setValue">
+        UPDATE paymenttype
+        <set>
+            <if test="type != null and type != ''">type = #{type}</if>
+            <if test="issignup != null and issignup != ''">issignup = #{issignup}</if>
+        </set>
+        where ksh = #{ksh}
+    </update>
+    <insert id="addOnePaymentType">
+        INSERT INTO paymenttype(ksh,type,issignup)
+        VALUES (#{ksh},#{type},#{issignup})
+    </insert>
+</mapper>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.suser.mapper.ClassAndNumMapper">
+    <select id="getList" resultType="com.suser.entity.ClassAndNum">
+        SELECT *
+        FROM classnum
+        <where>
+            <if test="ksh != null">ksh = #{ksh }</if>
+            <if test="studentid != null">studentid = #{studentid }</if>
+            <if test="classid != null">classid = #{classid}</if>
+            <if test="professional != null">professional = #{professional}</if>
+            <if test="grade != null">grade = #{grade}</if>
+            <if test="issignup != null">issignup = #{issignup}</if>
+            <if test="results != 0">results = #{results}</if>
+        </where>
+    </select>
+    <insert id="addOneClassAndNum">
+        INSERT INTO classnum (`ksh`, `studentid`, `classid`, `professional`, `grade`, `issignup`, `results`)
+        VALUES (#{ksh},#{studentid},#{classid},#{professional},#{grade},#{issignup},#{results})
+    </insert>
+</mapper>
